@@ -17,6 +17,7 @@ class ContactController extends Controller
             'email'=>'required',
             'message'=>'required'
         ]);
+
         $contact = new Contact();
         $contact->name = $request->name;
         $contact->email = $request->email;
@@ -24,7 +25,7 @@ class ContactController extends Controller
         $contact->date = date('Y-m-d H:i:s');
 
         $contact->save();
-        return redirect(route('contact'))->with('successMsg', 'Votre message a bien été envoyé');
+        return redirect(route('contact'))->with('successMsg', 'Votre message a bien été envoyé, Vous receverez une réponse rapidement.');
 
     }
 }

@@ -2,7 +2,7 @@
 //
 //	Project: phpLiteAdmin (https://www.phpliteadmin.org/)
 //	Version: 1.9.9-dev
-//	Summary: PHP-based admin tool to manage SQLite2 and SQLite3 databases on the web
+//	Summary: PHP-based Admin tool to manage SQLite2 and SQLite3 databases on the web
 //	Last updated: 2021-01-01
 //	Developers:
 //	   Dane Iracleous (daneiracleous@gmail.com)
@@ -44,7 +44,7 @@
 // Please see https://bitbucket.org/phpliteadmin/public/wiki/Configuration for more details
 
 //password to gain access (set an empty password to disable authentication completely)
-$password = 'admin';
+$password = 'Admin';
 
 //directory relative to this file to search for databases (if false, manually list databases in the $databases variable)
 // $directory = '.';
@@ -520,7 +520,7 @@ class Authorization
 
     public function isPasswordDefault()
     {
-        return SYSTEMPASSWORD == 'admin';
+        return SYSTEMPASSWORD == 'Admin';
     }
 
     private static function generateSalt($saltSize)
