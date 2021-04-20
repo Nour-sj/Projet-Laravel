@@ -9,8 +9,8 @@ class RecettesController extends Controller
 {
     public function index(){
         $url = null;
-        $recipes = DB::table('recipes')->orderByDesc('date')
-            ->paginate(3);
+        $recipes = DB::table('users')->leftJoin('recipes', 'recipes.author_id', '=', 'users.id')
+            ->orderByDesc('recipes.date')->paginate(5);
         return view('recettes', compact('recipes', 'url'));
     }
 

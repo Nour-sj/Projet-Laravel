@@ -17,12 +17,11 @@ class RecettesController extends Controller
      */
     public function index()
     {
-        $url = null;
-        $recipes = DB::table('recipes')->orderByDesc('date')
-            ->paginate(3);
-        return view('recettes', compact('recipes', 'url'));
-
+        $recipes = DB::table('users')->leftJoin('recipes', 'recipes.author_id', '=', 'users.id')
+            ->orderByDesc('recipes.date')->paginate(20);
+        return view('recette.edit', compact('recipes'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,29 +41,31 @@ class RecettesController extends Controller
      */
     public function store(Request $request)
     {
-            $this->validate($request,[
+
+
+        $this->validate($request,[
             'title'=>'required',
             'ingredients'=>'required',
             'content'=>'required',
-                'status'=>'required',
+            'tags'=>'required',
+            'image'=>'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
-        $recette = new Recipe();
-        $recette->title = $request->title;
-        $recette->ingredients = $request->ingredients;
-        //print_r(request('content'));die;
-        $recette->content =request('content');
-        //$recette->content="gbjugbjif";
-        $recette->url=str_replace(' ', '_',  $recette->title);
-        $recette->tags=request('tags');
-        $recette->date = date('Y-m-d H:i:s');
-        $auteur= $request->author_name;
-        $resultat = DB::table('users')->where('name', $auteur)->value('id');
-        $recette->author_id=$resultat;
-        $recette->status = $request->status;
 
-        $recette->save();
-        return redirect(route('store'))->with('successMsg', 'Votre recette a bien été créée');
+        $image = $request->file('image');
+        $imageName = time().'_'.str_replace(" ", "_", request('title')).'.'.$image->extension();
+        $image->move(public_path('media/images'), $imageName);
+
+        $recipe = new Recipe();
+        $recipe->title = request('title');
+        $recipe->content = request('content');
+        $recipe->ingredients = request('ingredients');
+        $recipe->url = str_replace(" ", "_", request('title'));
+        $recipe->tags = request('tags');
+        $recipe->image = $imageName;
+        $recipe->date = date('Y-m-d H:i:s');
+        $recipe->save();
+        return redirect(route('create'))->with('successMsg', 'Votre recette a bien été crée');
 
     }
 
@@ -87,7 +88,8 @@ class RecettesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = DB::table('recipes')->find($id);
+        return view('recette.edit_recette', compact('recipe'));
     }
 
     /**
@@ -99,7 +101,20 @@ class RecettesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'title'=>'required',
+            'content'=>'required',
+            'ingredients'=>'required',
+            'tags'=>'required'
+        ]);
+
+        $recipe = Recipe::find($id);
+        $recipe->title = request('title');
+        $recipe->content = request('content');
+        $recipe->ingredients = request('ingredients');
+        $recipe->tags = request('tags');
+        $recipe->save();
+        return redirect(route('edit'))->with('successMsg', 'La recette a bien été modifiée');
     }
 
     /**
@@ -110,6 +125,9 @@ class RecettesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $recipe->delete();
+        //return redirect(route('create'));
+        return redirect(route('edit'))->with('successMsg', 'La recette a bien été suprimée');
     }
 }

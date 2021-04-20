@@ -12,16 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecettesController;
@@ -34,9 +32,9 @@ Route::get('/recettes/{url}', [\App\Http\Controllers\RecettesController::class, 
 Route::get('admin/recettes', [\App\Http\Controllers\Admin\RecettesController::class, 'index']);
 Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'send'])->name('send');
-Route::get('admin/recettes/create', [\App\Http\Controllers\Admin\RecettesController::class, 'create'])->name('create');;
-Route::post('admin/recettes/create', [\App\Http\Controllers\Admin\RecettesController::class, 'store'])->name('store');
-Route::get('admin/recettes/edit', [\App\Http\Controllers\Admin\RecettesController::class, 'index'])->name('edit_home');
+Route::get('admin/recettes/create', [\App\Http\Controllers\Admin\RecettesController::class, 'create'])->name('create');
+Route::post('admin/recettes/create', [\App\Http\Controllers\Admin\RecettesController::class, 'store'])->name('create_recipe');
+Route::get('admin/recettes/edit', [\App\Http\Controllers\Admin\RecettesController::class, 'index'])->name('edit');
 Route::post('admin/recettes/edit/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'update'])->name('edit_update');
-Route::get('admin/recettes/edit_recette/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'editIndex'])->name('edit_recipe');
+Route::get('admin/recettes/edit_recette/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'edit'])->name('edit_recipe');
 Route::delete('admin/recettes/edit/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'destroy'])->name('edit_delete');
