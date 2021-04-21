@@ -148,7 +148,13 @@ class RecettesController extends Controller
         $author_name = request('author_name');
         $comment = new Comment();
         $author_id = DB::table('users')->where('name',$author_name)->value('id');
-        $comment->author_id = $author_id;
+        $count = DB::table('users')->where('name',$author_name)->count();
+        if($count > 0) {
+            $comment->author_id = $author_id;
+        } else {
+            $comment->author_id = 0;
+        }
+        
         $comment->recipe_id = $recipe_id;
         $comment->content = request('comment');
         $comment->date = date('Y-m-d H:i:s');
