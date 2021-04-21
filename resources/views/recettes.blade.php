@@ -70,56 +70,36 @@
                                     Comment panel
                                 </div>
                                 <div class="panel-body">
-                                    <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
-                                    <br>
-                                    <button type="button" class="btn btn-info pull-right">Post</button>
+                                    <form action="{{ route('addComment', $recipe->url) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('POST') }}
+                                        <input type="text" name="author_name" class="form-control" placeholder="Votre Nom..."></input>
+                                        <textarea name="comment" class="form-control" placeholder="Votre commantaire..." rows="3"></textarea>
+                                        <br>
+                                        <button type="submit" class="btn btn-info pull-right">Commenter</button>
+                                    </form>
+
                                     <div class="clearfix"></div>
                                     <hr>
                                     <ul class="media-list">
+                                        @if($nbComments < 0)
+                                        @foreach($comments_users as $comment)
                                         <li class="media">
                                             <a href="#" class="pull-left">
-                                                <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                                <img src="../media/images/user-default.png" alt="" class="img-circle">
                                             </a>
                                             <div class="media-body">
                                 <span class="text-muted pull-right">
-                                    <small class="text-muted">30 min ago</small>
+                                    <small class="text-muted">{{ $comment->date }}</small>
                                 </span>
-                                                <strong class="text-success">@MartinoMont</strong>
+                                                <strong class="text-success">{{ @$comment->name }}</strong>
                                                 <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
+                                                    {{ $comment->content }}
                                                 </p>
                                             </div>
                                         </li>
-                                        <li class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
-                                            </a>
-                                            <div class="media-body">
-                                <span class="text-muted pull-right">
-                                    <small class="text-muted">30 min ago</small>
-                                </span>
-                                                <strong class="text-success">@LaurenceCorreil</strong>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Lorem ipsum dolor <a href="#">#ipsumdolor </a>adipiscing elit.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
-                                            </a>
-                                            <div class="media-body">
-                                <span class="text-muted pull-right">
-                                    <small class="text-muted">30 min ago</small>
-                                </span>
-                                                <strong class="text-success">@JohnNida</strong>
-                                                <p>
-                                                    Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
-                                                </p>
-                                            </div>
-                                        </li>
+                                        @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

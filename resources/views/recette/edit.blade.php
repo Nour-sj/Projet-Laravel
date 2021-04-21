@@ -28,9 +28,9 @@
                         <a href=" {{ url('admin/recettes/edit_recette/'.$recipe->id) }} " class="btn btn-primary"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i> Modifier</a>
                         </button>
                         ||
-                        <form id="delete-form-{{ $recipe->id }}" action="{{ url('admin/recettes/edit/'.$recipe->id) }}" method="delete" style="display: none">
+                        <form id="delete-form-{{ $recipe->id }}" action="{{ route('edit_delete', $recipe->id) }}" method="POST" style="display: none">
                             {{ csrf_field() }}
-                            {{ method_field('delete') }}
+                            {{ method_field('POST') }}
                         </form>
                         <button class="btn btn-danger" onclick="if (confirm('Etes-vous sur de vouloir suprimer cette recette ?')) {
                             document.getElementById('delete-form-{{ $recipe->id }}').submit();

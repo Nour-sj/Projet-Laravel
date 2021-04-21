@@ -48,6 +48,10 @@
             <input @error('title') @enderror class="form-control form-control-lg" type="text" name="title" placeholder="Titre de la recette" value="{{old('title')}}" required>
         </div>
         <div>
+            <label><h6>Nom de l'auteur</h6></label>
+            <input class="form-control form-control-lg" type="text" name="author_name" placeholder="Nom de l'auteur..."  required>
+        </div>
+        <div>
             <label><h6>Ingrédients</h6></label>
             <textarea name="ingredients" class="form-control form-control-lg" placeholder="Ingrédients de la recette" required></textarea>
         </div>

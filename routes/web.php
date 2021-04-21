@@ -37,4 +37,6 @@ Route::post('admin/recettes/create', [\App\Http\Controllers\Admin\RecettesContro
 Route::get('admin/recettes/edit', [\App\Http\Controllers\Admin\RecettesController::class, 'index'])->name('edit');
 Route::post('admin/recettes/edit/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'update'])->name('edit_update');
 Route::get('admin/recettes/edit_recette/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'edit'])->name('edit_recipe');
-Route::delete('admin/recettes/edit/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'destroy'])->name('edit_delete');
+Route::post('admin/recettes/edit/{id}', [\App\Http\Controllers\Admin\RecettesController::class, 'destroy'])->name('edit_delete');
+Route::post('/recettes/{url}', [\App\Http\Controllers\Admin\RecettesController::class, 'addComment'])->name('addComment');
+

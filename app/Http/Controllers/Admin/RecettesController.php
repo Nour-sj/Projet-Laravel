@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +49,7 @@ class RecettesController extends Controller
             'ingredients'=>'required',
             'content'=>'required',
             'tags'=>'required',
+            'author_name'=>'required',
             'image'=>'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
@@ -56,7 +58,10 @@ class RecettesController extends Controller
         $imageName = time().'_'.str_replace(" ", "_", request('title')).'.'.$image->extension();
         $image->move(public_path('media/images'), $imageName);
 
+        $author_name = request('author_name');
+        $author_id = DB::table('users')->where('name',$author_name)->value('id');
         $recipe = new Recipe();
+        $recipe->author_id = $author_id;
         $recipe->title = request('title');
         $recipe->content = request('content');
         $recipe->ingredients = request('ingredients');
@@ -129,5 +134,26 @@ class RecettesController extends Controller
         $recipe->delete();
         //return redirect(route('create'));
         return redirect(route('edit'))->with('successMsg', 'La recette a bien été suprimée');
+    }
+
+    public function addComment(Request $request, $url) {
+
+        $this->validate($request,[
+            'author_name'=>'required',
+            'comment'=>'required',
+        ]);
+
+
+        $recipe_id = DB::table('recipes')->where('url',$url)->value('id');
+        $author_name = request('author_name');
+        $comment = new Comment();
+        $author_id = DB::table('users')->where('name',$author_name)->value('id');
+        $comment->author_id = $author_id;
+        $comment->recipe_id = $recipe_id;
+        $comment->content = request('comment');
+        $comment->date = date('Y-m-d H:i:s');
+        $comment->save();
+
+        return redirect(url('/recettes/'.$url));
     }
 }
