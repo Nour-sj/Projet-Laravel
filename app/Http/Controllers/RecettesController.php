@@ -22,7 +22,7 @@ class RecettesController extends Controller
 
         $comments_users = DB::table('users')->Join('comments', 'comments.author_id', '=', 'users.id')
             ->orderByDesc('comments.date')->get();
-        $nbComments = $comments_users->count();
+        $nbComments = DB::table('users')->Join('comments', 'comments.author_id', '=', 'users.id')->count();
         return view('recettes', compact('recipe','comments_users', 'nbComments','author', 'url'));
     }
 }
