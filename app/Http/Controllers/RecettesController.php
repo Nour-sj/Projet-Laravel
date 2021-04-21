@@ -21,7 +21,7 @@ class RecettesController extends Controller
         $author = DB::table('users')->where('id', $author_id)->first();
 
         $comments_users = DB::table('users')->Join('comments', 'comments.author_id', '=', 'users.id')
-            ->orderByDesc('comments.date');
+            ->orderByDesc('comments.date')->get();
         $nbComments = $comments_users->count();
         return view('recettes', compact('recipe','comments_users', 'nbComments','author', 'url'));
     }
