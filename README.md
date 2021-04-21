@@ -1,62 +1,46 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Projet de création d’une application web avec le framework PHP Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Le but de ce projet est de réaliser un site de recette de cuisine à l’aide du framework PHP Laravel.
+Le site est composé de :
+- **Une page d’Accueil** affichant un texte de bienvenue et les 3 dernières recettes.
+- **La page recettes**, qui affichent une liste de toutes les recettes avec une barre de recherche.
+- **La page d’une recette**, affichée après avoir été cliquée sur l’une d’elle dans la liste.
+- **Une page de contact** avec un formulaire.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Guide d'installation
+- Pour cloner notre application web, copiez la clé `HTTPS` ou `SSH` du repository, ouvrez une fenêtre de Terminal, Remplacez le répertoire de travail actuel par l'emplacement où vous souhaitez que le répertoire soit cloné, Tapez la commande `git clone`, puis collez l'URL que vous avez copiée précédemment, appuyez sur Entrée pour créer votre clone local.
+- Installez les dépendances de l'application web à partir de composer avec la commande suivante `composer install`
+- Configurez les accès dans le fichier **.env** pour permettre une connexion à la base de donnée, spécifiez l’utilisation de SQLite et le chemin d’accès au
+  fichier **database.db** :
+    - `DB_CONNECTION`=sqlite
+    - Mettez le PATH de votre fichier **database.db** dans `DB_DATABASE`
+    - Remplissez les options  `DB_HOST` `DB_PORT` `DB_USERNAME` et `DB_PASSWORD`
+- Lancez le serveur web, et entrez la commande suivante `php artisan serve` dans le répertoire de l'application, le projet devrait être accessible à l’url suivante:
+  http://localhost:8000
+- Créez une base de données vide pour le projet Laravel, Utilisez une base SQLite plutôt que MySQL.
+- Lancez les migrations avec du Seeding avec la commande suivante `php artisan migrate:fresh --seed`
+- Récupérez la base de données **database.db** du répertoire **database/recettes/** de l’application, remplacez le fichier **database.db** dans **database/database.db** par le fichier que vous avez récupéré.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Les parties implémentées
+- La page d’Accueil affichant les 3 dernières recettes est accessible via l'URL http://localhost:8000 ou en cliquant sur le bouton **Home** dans le menu 
+- La page recettes, qui affichent une liste de toutes les recettes est accessible via l'URL http://localhost:8000/recettes ou en cliquant sur le bouton **Recettes** dans le menu
+- La page d’une recette sera affichée après avoir été cliquée dans la liste, ou via l'URL http://localhost:8000/recettes/{url_recette}
+- La page de contact est accessible via l'URL http://localhost:8000/contact ou en cliquant sur le bouton **Contact** dans le menu
+- Pour l’ajout d'une recette, il faut aller sur l'URL http://localhost:8000/admin/recettes/create un message indiquant que la recette a bien été créée sera affiché sur la même page
+- Pour l’édition d'une recette il faut aller sur l'URL http://localhost:8000/admin/recettes/edit et cliquer sur le bouton `modifier`à côté de la recette qu'on veut modifier, on sera rediriger vers l'URL http://127.0.0.1:8000/admin/recettes/edit_recette/{id_de_la_recette}
+- Pour la suppression d'une recette il faut aller sur l'URL http://localhost:8000/admin/recettes/edit et cliquer sur le bouton `supprimer`à côté de la recette qu'on veut supprimer, un message indiquant que la recette a bien été supprimée sera affiché sur la même page  
+- Ajout de fichiers média pour les recettes
+- La Gestion des commentaires : pour ajouter un commentaire dans la page d’une recette, il faut remplir le formulaire en bas de la recette avec le nom de l'utilisateur et le commentaire, et cliquer sur le bouton `commenter`, on peut vérifier que le commentaire a bien été ajouté à la base de données, les commentaires sont affichés en dessous de la recette.
+- L'Identification : 
+   - Utilisation d’un starterkit breeze
+   - On peut créer un nouveau utilisateur à l'URL http://localhost:8000/register
+   - On peut se connecter au compte utilisateur à l'URL http://localhost:8000/login
+     - exemple : 
+       - Email: test.utilisateur@gmail.com
+       - Password: testutilisateur
+    
+       
+            
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
