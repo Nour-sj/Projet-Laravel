@@ -32,7 +32,10 @@ Le site est composé de :
 - Pour l’édition d'une recette il faut aller sur l'URL http://localhost:8000/admin/recettes/edit et cliquer sur le bouton `modifier`à côté de la recette qu'on veut modifier, on sera rediriger vers l'URL http://127.0.0.1:8000/admin/recettes/edit_recette/{id_de_la_recette}
 - Pour la suppression d'une recette il faut aller sur l'URL http://localhost:8000/admin/recettes/edit et cliquer sur le bouton `supprimer`à côté de la recette qu'on veut supprimer, un message indiquant que la recette a bien été supprimée sera affiché sur la même page  
 - Ajout de fichiers média pour les recettes
-- La Gestion des commentaires : pour ajouter un commentaire dans la page d’une recette, il faut remplir le formulaire en bas de la recette avec le nom de l'utilisateur et le commentaire, et cliquer sur le bouton `commenter`, on peut vérifier que le commentaire a bien été ajouté à la base de données, les commentaires sont affichés en dessous de la recette.
+- La Gestion des commentaires : 
+   - Pour ajouter un commentaire dans la page d’une recette, il faut remplir le formulaire en bas de la recette avec le nom de l'utilisateur et le commentaire, et cliquer sur le bouton `commenter`.
+   - Si l'utilisateur n'existe pas dans la base de données, le commentaire sera publié sous le nom **inconnu**
+   - On peut vérifier que le commentaire a bien été ajouté à la base de données, les commentaires sont affichés en dessous de la recette.
 - L'Identification : 
    - Utilisation d’un starterkit breeze
    - On peut créer un nouveau utilisateur à l'URL http://localhost:8000/register
