@@ -82,7 +82,7 @@
                                     <div class="clearfix"></div>
                                     <hr>
                                     <ul class="media-list">
-                                        @if($nbComments < 0)
+                                        @if($nbComments > 0)
                                         @foreach($comments_users as $comment)
                                         <li class="media">
                                             <a href="#" class="pull-left">
